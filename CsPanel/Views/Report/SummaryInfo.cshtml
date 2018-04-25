@@ -1,0 +1,166 @@
+﻿@using System.Collections
+@model CsPanel.Models.SummaryInfo
+
+@{
+    ViewBag.Title = "SummaryInfo";
+}
+
+<h2></h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+@using (Html.BeginForm("SummaryInfo", "Report", FormMethod.Post))
+{
+    <div class="form-horizontal">
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.ReportData.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.EditorFor(model => model.ReportData.FromDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.ReportData.FromDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReportData.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReportData.EndDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.ReportData.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-2">From Date</label>
+            <div class='input-group date col-md-3 datetimepicker1'>
+
+                @Html.EditorFor(model => model.ReportData.FromDate, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">To Date</label>
+            <div class='input-group date col-md-3 datetimepicker1'>
+
+                @Html.EditorFor(model => model.ReportData.EndDate, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+
+    @*<input type="file" id="fileUpload" class="btn btn-primary" name="FileUpload" /><br />
+        <input type="submit" class="btn btn-primary" name="UploadNewEmployee" id="fileUploadExcel" value="Upload your todays work excel" />*@
+}
+
+
+
+@{
+    if (Model.SummaryDatas.Count > 0)
+    {
+
+        <table class="table table-bordered">
+            <tr>
+
+                <th>
+                    @*@Html.DisplayNameFor(model => model.ExcelDatas.ServiceName)*@
+                    ServiceName
+                </th>
+                <th>
+
+                    Romana
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Banglalink)*@
+                    Maksuda
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Robi)*@
+                    Total
+                </th>
+
+
+            </tr>
+
+            @foreach (var item in Model.SummaryDatas)
+            {
+                if (item.ServiceName == "Total")
+                {
+                    <tr style="font-size: 200%">
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Romana)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.rawshon)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Romana)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.rawshon)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+
+                    </tr>
+                }
+
+            }
+
+        </table>
+
+
+
+
+
+    }
+
+
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".datetimepicker1").datetimepicker({format: 'YYYY-MM-DD'});
+        });
+    </script>
+}

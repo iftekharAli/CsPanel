@@ -1,0 +1,183 @@
+﻿@using System.Collections
+@model CsPanel.Models.RawInfo
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "Report", FormMethod.Post))
+{
+<div class="form-horizontal">
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.ReportData.AgentName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ReportData.AgentName, new SelectList((IEnumerable)ViewData["AgentName"], "AgentName", "AgentName"), "All", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ReportData.AgentName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReportData.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input type="date" ng-model="FromDate" class="form-control" />*@
+                @Html.EditorFor(model => model.ReportData.FromDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.ReportData.FromDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReportData.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input type="date" ng-model="EndDate" id="qq" class="form-control" />*@
+                @Html.EditorFor(model => model.ReportData.EndDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.ReportData.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    
+</div>
+    
+    @*<input type="file" id="fileUpload" class="btn btn-primary" name="FileUpload" /><br />
+    <input type="submit" class="btn btn-primary" name="UploadNewEmployee" id="fileUploadExcel" value="Upload your todays work excel" />*@
+}
+
+
+
+@{
+    if (Model.ExcelDatas != null)
+    {
+
+   
+    if (Model.ExcelDatas.Count > 0)
+    {
+
+        <table class="table table-bordered">
+            <tr>
+
+                <th>
+                    @*@Html.DisplayNameFor(model => model.ExcelDatas.ServiceName)*@
+                    ServiceName
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.GrameenPhone)*@
+                    GrameenPhone
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Banglalink)*@
+                    Banglalink
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Robi)*@
+                    Robi
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Airtel)*@
+                    Airtel
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Teletalk)*@
+                    Teletalk
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Total)*@
+                    Total
+                </th>
+               
+              
+            </tr>
+
+            @foreach (var item in Model.ExcelDatas)
+            {
+                if (item.ServiceName == "Total")
+                {
+                    <tr style="font-size: 200%">
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GrameenPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Banglalink)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Robi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Airtel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Teletalk)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                  
+                        @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GrameenPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Banglalink)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Robi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Airtel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Teletalk)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                  
+                        @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                    </tr>
+                }
+              
+            }
+
+        </table>
+
+
+
+    }
+    }
+
+
+}
+
+
+
+
